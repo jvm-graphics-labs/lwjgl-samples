@@ -25,23 +25,23 @@ repositories {
 
 dependencies {
 
-    lwjgl.run { implementation() }
+    lwjgl.run { testImplementation() }
 
     // https://mvnrepository.com/artifact/org.testng/testng
-    implementation("org.testng:testng:7.1.0")
+    testImplementation("org.testng:testng:7.1.0")
 
     // https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-core
-    implementation("org.openjdk.jmh:jmh-core:1.23")
+    testImplementation("org.openjdk.jmh:jmh-core:1.23")
 
     // https://mvnrepository.com/artifact/org.openjfx/javafx-base
-    implementation("org.openjfx:javafx-base:11.0.2")
+    testImplementation("org.openjfx:javafx-base:11.0.2")
 
-    implementation("org.joml:joml:1.9.19")
+    testImplementation("org.joml:joml:1.9.19")
 
     // https://mvnrepository.com/artifact/javax.annotation/javax.annotation-api
 //    implementation("javax.annotation:javax.annotation-api:1.2")
     // https://mvnrepository.com/artifact/javax.annotation/jsr305
-    implementation("javax.annotation:jsr305:1.0")
+    testImplementation("javax.annotation:jsr305:1.0")
 }
 
 javafx {
@@ -62,12 +62,12 @@ object lwjgl {
         LINUX -> "linux"
         else -> "macos"
     }
-    fun DependencyHandlerScope.implementation() {
+    fun DependencyHandlerScope.testImplementation() {
         mod.forEach {
             val base = "$name$it:$version"
-            implementation(base)
+            testImplementation(base)
             if (it !in plain)
-                runtime("$base:natives-$platform")
+                runtimeOnly("$base:natives-$platform")
         }
     }
 }
